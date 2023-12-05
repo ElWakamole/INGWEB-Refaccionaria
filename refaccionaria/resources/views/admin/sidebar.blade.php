@@ -25,6 +25,9 @@
                 <a href="{{ url('/admin/products') }}"><i class="fa-solid fa-box"></i> Productos</a>
             </li>
             <li>
+                <a href="{{ url('/admin/types/0') }}"><i class="fa-solid fa-folder"></i> Tipos</a>
+            </li>
+            <li>
                 <a href="{{ url('/admin/users') }}"><i class="fa-solid fa-users"></i> Usuarios</a>
             </li>
         </ul>
