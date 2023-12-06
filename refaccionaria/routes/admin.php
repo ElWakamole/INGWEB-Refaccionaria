@@ -6,15 +6,21 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TypeController;
 
 Route::prefix('/admin')->group(function () {
-    Route::get('/', [DashboardController::class,'getDashboard']);
-    Route::get('/users', [UserController::class,'getUsers']);
+    Route::get('/', [DashboardController::class,'getDashboard'])->name('dashboard');
+    Route::get('/users/{status}', [UserController::class,'getUsers'])->name('userlist');
+    Route::get('/users/{id}/edit', [UserController::class,'getUsersEdit'])->name('useredit');
+    Route::get('/users/{id}/permissions', [UserController::class,'getUsersPermissions'])->name('userpermissions');
+    Route::post('/users/{id}/permissions', [UserController::class,'postUsersPermissions'])->name('userpermissions');
     //Modulos Products
-    Route::get('/products', [ProductController::class,'getHome']);
-    Route::get('/products/add', [ProductController::class,'getProductAdd']);
+    Route::get('/products', [ProductController::class,'getHome'])->name('products');
+    Route::get('/products/add', [ProductController::class,'getProductAdd'])->name('productsadd');
+    Route::get('/products/{id}/edit', [ProductController::class,'getProductEdit'])->name('productsedit');
+    Route::post('/products/{id}/edit', [ProductController::class,'postProductEdit'])->name('productsedit');
+    Route::post('/products/add', [ProductController::class,'postProductAdd'])->name('productsadd');
     //Tipos
-    Route::get('/types/{module}',[TypeController::class,'getHome']);
-    Route::post('/types/add', [TypeController::class,'postTypeAdd']);
-    Route::get('/types/{id}/edit',[TypeController::class,'getTypeEdit']);
-    Route::post('/types/{id}/edit',[TypeController::class,'postTypeEdit']);
-    Route::get('/types/{id}/delete',[TypeController::class,'getTypeDelete']);
+    Route::get('/types/{module}',[TypeController::class,'getHome'])->name('types');
+    Route::post('/types/add', [TypeController::class,'postTypeAdd'])->name('typesadd');
+    Route::get('/types/{id}/edit',[TypeController::class,'getTypeEdit'])->name('typesedit');
+    Route::post('/types/{id}/edit',[TypeController::class,'postTypeEdit'])->name('typesedit');
+    Route::get('/types/{id}/delete',[TypeController::class,'getTypeDelete'])->name('typesdelete');
 });

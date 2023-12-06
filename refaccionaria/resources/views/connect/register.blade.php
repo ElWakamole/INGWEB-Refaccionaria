@@ -71,7 +71,7 @@
                             $('.alert').slideDown();
                             setTimeot(function() {
                                 $('.alert').slideUp();
-                            }, 1000);
+                            }, 100);
                         </script>
                     </div>
                 </div>

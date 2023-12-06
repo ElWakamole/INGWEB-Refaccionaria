@@ -20,21 +20,25 @@
                 </h2>
             </div>
             <div class="inside">
-                {!! Form::open(['url' => '/admin/product/add']) !!}
+                {!! Form::open(['url' => '/admin/products/add', 'files' => 'true']) !!}
                 <div class="row mb-2">
                     <div class="col-md-5">
                         {!! Form::label('name', 'Nombre del Producto:', ['class' => 'mb-1']) !!}
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-keyboard"></i></span>
-                            {!! Form::text('name', null, ['class' => 'form-control','mb-1']) !!}
+                            {!! Form::text('name', null, ['class' => 'form-control', 'mb-1']) !!}
                         </div>
                     </div>
                     <div class="col-md-3">
                         {!! Form::label('type', 'Tipo:', ['class' => 'mb-1']) !!}
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-keyboard"></i></span>
+                            {!! Form::select('type', $types, 0, ['class' => 'form-select', 'mb-2']) !!}
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        {!! Form::label('img', 'Imagen Destacada:', ['class' => 'mb-1','form-label']) !!}
-                        {!! Form::file('img', ['class' => 'form-control','id' => 'formFile']) !!}
+                        {!! Form::label('img', 'Imagen Destacada:', ['class' => 'mb-1', 'form-label']) !!}
+                        {!! Form::file('img', ['class' => 'form-control', 'id' => 'formFile', 'accept' => "image/*"]) !!}
                     </div>
                 </div>
 
@@ -43,35 +47,36 @@
                         {!! Form::label('price', 'Precio:', ['class' => 'label-form']) !!}
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-dollar-sign"></i></span>
-                            {!! Form::number('price', null, ['class' => 'form-control', 'min' => '0.00','step' => 'any']) !!}
+                            {!! Form::number('price', null, ['class' => 'form-control', 'min' => '0.00', 'step' => 'any']) !!}
                         </div>
                     </div>
                     <div class="col-md-3">
                         {!! Form::label('stock', 'Stock:', ['class' => 'label-form']) !!}
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-table-list"></i></span>
-                            {!! Form::number('stock', null, ['class' => 'form-control', 'min' => '0','step' => 'any']) !!}
+                            {!! Form::number('stock', null, ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
                         </div>
                     </div>
                     <div class="col-md-3">
-                        {!! Form::label('stock-min', 'Stock Minimo:', ['class' => 'label-form']) !!}
+                        {!! Form::label('stock_min', 'Stock Minimo:', ['class' => 'label-form']) !!}
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-table-cells-large"></i></span>
-                            {!! Form::number('stock-min', null, ['class' => 'form-control', 'min' => '0','step' => 'any']) !!}
+                            <span class="input-group-text" id="basic-addon1"><i
+                                    class="fa-solid fa-table-cells-large"></i></span>
+                            {!! Form::number('stock_min', null, ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
                         </div>
                     </div>
                     <div class="col-md-3">
-                        {!! Form::label('stock-max', 'Stock Maximo:', ['class' => 'label-form']) !!}
+                        {!! Form::label('stock_max', 'Stock Maximo:', ['class' => 'label-form']) !!}
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-table-cells"></i></span>
-                            {!! Form::number('stock-max', null, ['class' => 'form-control', 'min' => '0','step' => 'any']) !!}
+                            {!! Form::number('stock_max', null, ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
                         </div>
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col-md-12">
-                        {!! Form::label('content', 'Descripcion:', ['class' => 'mb-1','label-form']) !!}
+                        {!! Form::label('content', 'Descripcion:', ['class' => 'mb-1', 'label-form']) !!}
                         {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>

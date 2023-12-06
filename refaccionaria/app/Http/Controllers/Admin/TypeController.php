@@ -12,6 +12,7 @@ class TypeController extends Controller
 {
     function __construct(){
         $this->middleware("auth");
+        $this->middleware("user.status");
         $this->middleware("isadmin");
     }
 
@@ -82,7 +83,7 @@ class TypeController extends Controller
     public function getTypeDelete($id){
         $t = Types::find($id);
         if($t->delete()):
-            return redirect()->back()->with('message','Tipo borrado exitosamente')->with('typealert','success');
+            return redirect()->with('message','Tipo borrado exitosamente')->with('typealert','success');
         endif;
     }
 }

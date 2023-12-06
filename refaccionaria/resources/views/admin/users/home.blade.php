@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">
-        <a href="{{ url('/admin/users') }}"><i class="fa-solid fa-users"></i> Usuarios</a>
+        <a href="{{ url('/admin/users/{status}') }}"><i class="fa-solid fa-users"></i> Usuarios</a>
     </li>
 @endsection
 
@@ -17,7 +17,22 @@
                 </h2>
             </div>
             <div class="inside">
-                <table class="table">
+                <div class="row mb-2">
+                    <div class="col-md-2 offset-md-10">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" style="width: 100%">
+                                <i class="fa-solid fa-filter"></i> Filtrar
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url('/admin/users/all') }}">Todos</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/admin/users/0') }}">No Verificado</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/admin/users/1') }}">Verificado</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <table class="table" id="users">
                     <thead>
                         <tr>
                             <td>ID</td>
@@ -27,6 +42,7 @@
                             <td>email</td>
                             <td>Direccion</td>
                             <td>Celular</td>
+                            <td>Estatus</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -40,14 +56,15 @@
                                 <td> {{ $user->getEmail() }} </td>
                                 <td> {{ $user->getAddress() }} </td>
                                 <td> {{ $user->getPhone() }} </td>
+                                <td> {{ getStatusUserKey($user->getStatus()) }} </td>
                                 <td>
                                     <div class="opts">
-                                        <a href="{{ url('/admin/user/' . $user->getId() . '/edit') }}" data-toggle="tooltip"
-                                            data-bs-placement="top" data-bs-title="Editar"><i
+                                        <a href="{{ url('/admin/users/' . $user->getId() . '/edit') }}"
+                                            data-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i
                                                 class="fa-regular fa-pen-to-square"></i></a>
-                                        <a href="{{ url('/admin/user/' . $user->getId() . '/delete') }}"
-                                            data-toggle="tooltip" data-bs-placement="top" data-bs-title="Eliminar"><i
-                                                class="fa-regular fa-trash-can"></i></a>
+                                        <a href="{{ url('/admin/users/' . $user->getId() . '/permissions') }}"
+                                            data-toggle="tooltip" data-bs-placement="top" data-bs-title="Permisos del Usuario"><i
+                                                class="fa-solid fa-wrench"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -57,4 +74,14 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#users').DataTable({
+                "lengthMenu": [
+                    [5, 10, 50 - 1],
+                    [5, 10, 50, 'All']
+                ]
+            });
+        });
+    </script>
 @endsection

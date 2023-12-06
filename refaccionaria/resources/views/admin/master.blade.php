@@ -24,6 +24,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -42,9 +46,8 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="{{ url('/admin') }}"
-                                class="nav-link"><i
-                                    class="fa-solid fa-house"></i> Dashboard</a>
+                            <a href="{{ url('/admin') }}" class="nav-link"><i class="fa-solid fa-house"></i>
+                                Dashboard</a>
                         </li>
                     </ul>
                 </div>
@@ -77,12 +80,12 @@
                                 $('.alert').slideDown();
                                 setTimeot(function() {
                                     $('.alert').slideUp();
-                                }, 1000);
+                                }, 100);
                             </script>
                         </div>
                     </div>
                 @endif
-                
+
                 @section('content')
                 @show
 

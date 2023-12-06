@@ -37,7 +37,14 @@ class ConnectController extends Controller
             if(!Auth::attempt(['email' => $request->input('email'),'password' => $request->input('password')],true)):
                 return redirect()->back()->with('message','Credenciales incorrectas')->with('typealert','danger');
             else:
-                return redirect('/');
+                if(Auth::user()->status == "0"):
+                    return redirect('/logout');
+                else:
+                    if(!Auth::user()->role == "1"):
+                        return redirect('/');
+                    endif;
+                    return redirect('/admin');
+                endif;
             endif;
         endif;
     }
@@ -92,7 +99,13 @@ class ConnectController extends Controller
     }
 
     public function getLogout(){
+        $status = Auth::user()->status;
         Auth::logout();
-        return redirect('/');
+
+        if($status == "0"):
+            return redirect('/login')->with('message','su peticion de registro esta pendiente')->with('typealert','danger');
+        else:
+            return redirect('/');
+        endif;
     }
 }
