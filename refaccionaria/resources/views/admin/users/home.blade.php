@@ -59,12 +59,17 @@
                                 <td> {{ getStatusUserKey($user->getStatus()) }} </td>
                                 <td>
                                     <div class="opts">
-                                        <a href="{{ url('/admin/users/' . $user->getId() . '/edit') }}"
-                                            data-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i
-                                                class="fa-regular fa-pen-to-square"></i></a>
-                                        <a href="{{ url('/admin/users/' . $user->getId() . '/permissions') }}"
-                                            data-toggle="tooltip" data-bs-placement="top" data-bs-title="Permisos del Usuario"><i
-                                                class="fa-solid fa-wrench"></i></a>
+                                        @if (kvfj(Auth::user()->permissions, 'useredit'))
+                                            <a href="{{ url('/admin/users/' . $user->getId() . '/edit') }}"
+                                                data-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar"><i
+                                                    class="fa-regular fa-pen-to-square"></i></a>
+                                        @endif
+                                        @if (kvfj(Auth::user()->permissions, 'userpermissions') && $user->getStatus() == '1')
+                                            <a href="{{ url('/admin/users/' . $user->getId() . '/permissions') }}"
+                                                data-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Permisos del Usuario"><i class="fa-solid fa-wrench"></i></a>
+                                        @endif
+
                                     </div>
                                 </td>
                             </tr>
@@ -78,8 +83,8 @@
         $(document).ready(function() {
             $('#users').DataTable({
                 "lengthMenu": [
-                    [5, 10, 50 - 1],
-                    [5, 10, 50, 'All']
+                    [2, 5, 10 - 1],
+                    [2, 5, 10, 'All']
                 ]
             });
         });

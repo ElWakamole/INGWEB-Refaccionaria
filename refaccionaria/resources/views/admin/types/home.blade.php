@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">
-        <a href="{{ url('/admin/types') }}"><i class="fa-solid fa-folder"></i> Tipos</a>
+        <a href="{{ url('/admin/types/0') }}"><i class="fa-solid fa-folder"></i> Tipos</a>
     </li>
 @endsection
 
@@ -12,37 +12,42 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="panel shadow">
-                    <div class="header">
-                        <h2 class="title">
-                            <i class="fa-solid fa-plus"></i> Tipos
-                        </h2>
-                    </div>
-                    <div class="inside">
-                        {!! Form::open(['url' => '/admin/types/add']) !!}
-                        {!! Form::label('name', 'Nombre:', ['class' => 'mb-2']) !!}
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-keyboard"></i></span>
-                            {!! Form::text('name', null, ['class' => 'form-control', 'mb-2']) !!}
+                @if (kvfj(Auth::user()->permissions, 'typesadd'))
+                    <div class="panel shadow">
+                        <div class="header">
+                            <h2 class="title">
+                                <i class="fa-solid fa-plus"></i> Tipos
+                            </h2>
                         </div>
-                        {!! Form::label('module', 'Modulo:', ['class' => 'mb-2']) !!}
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-keyboard"></i></span>
-                            {!! Form::select('module', getModulesArray(), 0, ['class' => 'form-select','mb-2']) !!}
-                        </div>
-                        {!! Form::label('icon', 'Icono:', ['class' => 'mb-2']) !!}
-                        <div class="input-group mb-2">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-keyboard"></i></span>
-                            {!! Form::text('icon', '<i class="fa-regular fa-folder-open"></i>', ['class' => 'form-control']) !!}
-                        </div>
+                        <div class="inside">
+                            {!! Form::open(['url' => '/admin/types/add']) !!}
+                            {!! Form::label('name', 'Nombre:', ['class' => 'mb-2']) !!}
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i
+                                        class="fa-regular fa-keyboard"></i></span>
+                                {!! Form::text('name', null, ['class' => 'form-control', 'mb-2']) !!}
+                            </div>
+                            {!! Form::label('module', 'Modulo:', ['class' => 'mb-2']) !!}
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i
+                                        class="fa-regular fa-keyboard"></i></span>
+                                {!! Form::select('module', getModulesArray(), 0, ['class' => 'form-select', 'mb-2']) !!}
+                            </div>
+                            {!! Form::label('icon', 'Icono:', ['class' => 'mb-2']) !!}
+                            <div class="input-group mb-2">
+                                <span class="input-group-text" id="basic-addon1"><i
+                                        class="fa-regular fa-keyboard"></i></span>
+                                {!! Form::text('icon', '<i class="fa-regular fa-folder-open"></i>', ['class' => 'form-control']) !!}
+                            </div>
 
-                        {!! Form::submit('Grabar', ['class' => 'btn btn-success']) !!}
+                            {!! Form::submit('Grabar', ['class' => 'btn btn-success']) !!}
 
-                        {!! Form::close() !!}
+                            {!! Form::close() !!}
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
-            <div class="col-md-9">
+            <div @if (kvfj(Auth::user()->permissions, 'typesadd')) class="col-md-9" else: class="col-md-12"  @endif>
                 <div class="panel shadow">
                     <div class="header">
                         <h2 class="title">
@@ -52,7 +57,8 @@
                     <div class="inside">
                         <nav class="nav nav-pills">
                             @foreach (getModulesArray() as $t => $k)
-                                <a href="{{ url('/admin/types/'.$t) }}" class="nav-link"><i class="fa-solid fa-list"></i> {{$k}} </a>
+                                <a href="{{ url('/admin/types/' . $t) }}" class="nav-link"><i class="fa-solid fa-list"></i>
+                                    {{ $k }} </a>
                             @endforeach
                         </nav>
                         <table class="table">
@@ -70,12 +76,18 @@
                                         <td> {{ $type->name }} </td>
                                         <td>
                                             <div class="opts">
-                                                <a href="{{ url('/admin/types/'.$type->id.'/edit') }}" data-toggle="tooltip"
-                                                    data-bs-placement="top" data-bs-title="Editar"><i
-                                                        class="fa-regular fa-pen-to-square"></i></a>
-                                                <a href="{{ url('/admin/types/'.$type->id.'/delete') }}"
-                                                    data-toggle="tooltip" data-bs-placement="top" data-bs-title="Eliminar"><i
-                                                        class="fa-regular fa-trash-can"></i></a>
+                                                @if (kvfj(Auth::user()->permissions, 'typesedit'))
+                                                    <a href="{{ url('/admin/types/' . $type->id . '/edit') }}"
+                                                        data-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Editar"><i
+                                                            class="fa-regular fa-pen-to-square"></i></a>
+                                                @endif
+                                                @if (kvfj(Auth::user()->permissions, 'typesdelete'))
+                                                    <a href="{{ url('/admin/types/' . $type->id . '/delete') }}"
+                                                        data-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Eliminar"><i class="fa-regular fa-trash-can"></i></a>
+                                                @endif
+
                                             </div>
                                         </td>
                                     </tr>

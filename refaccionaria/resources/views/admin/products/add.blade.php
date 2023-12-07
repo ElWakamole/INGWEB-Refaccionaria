@@ -54,7 +54,7 @@
                         {!! Form::label('stock', 'Stock:', ['class' => 'label-form']) !!}
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-table-list"></i></span>
-                            {!! Form::number('stock', null, ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
+                            {!! Form::number('stock', null, ['class' => 'form-control', 'min' => '0']) !!}
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -62,14 +62,14 @@
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i
                                     class="fa-solid fa-table-cells-large"></i></span>
-                            {!! Form::number('stock_min', null, ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
+                            {!! Form::number('stock_min', null, ['class' => 'form-control', 'min' => '0']) !!}
                         </div>
                     </div>
                     <div class="col-md-3">
                         {!! Form::label('stock_max', 'Stock Maximo:', ['class' => 'label-form']) !!}
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-table-cells"></i></span>
-                            {!! Form::number('stock_max', null, ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
+                            {!! Form::number('stock_max', null, ['class' => 'form-control', 'min' => '0']) !!}
                         </div>
                     </div>
                 </div>

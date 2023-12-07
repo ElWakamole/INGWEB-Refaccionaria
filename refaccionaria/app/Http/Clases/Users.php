@@ -2,6 +2,7 @@
 namespace App\Http\Clases;
 class Users {
     private $id;
+    private $local;
     private $role;
     private $name;
     private $lastnameP;
@@ -12,8 +13,9 @@ class Users {
     private $phone;
     private $status;
 
-    public function __construct($id, $role, $name, $lastnameP, $lastnameM, $email, $permissions, $address, $phone, $status) {
+    public function __construct($id, $local, $role, $name, $lastnameP, $lastnameM, $email, $permissions, $address, $phone, $status) {
         $this->id = $id;
+        $this->local = $local;
         $this->role = $role;
         $this->name = $name;
         $this->lastnameP = $lastnameP;
@@ -55,6 +57,11 @@ class Users {
     public function getId(){
         return $this->id;
     }
+
+    public function getLocal() {
+        return $this->local;
+    }
+
     public function getRole() {
         return $this->role;
     }

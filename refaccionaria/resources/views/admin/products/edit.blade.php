@@ -22,7 +22,7 @@
                         </h2>
                     </div>
                     <div class="inside">
-                        {!! Form::open(['url' => '/admin/products/'.$product->getId().'/edit', 'files' => 'true']) !!}
+                        {!! Form::open(['url' => '/admin/products/' . $product->getId() . '/edit', 'files' => 'true']) !!}
                         <div class="row mb-2">
                             <div class="col-md-5">
                                 {!! Form::label('name', 'Nombre del Producto:', ['class' => 'mb-1']) !!}
@@ -52,7 +52,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1"><i
                                             class="fa-solid fa-dollar-sign"></i></span>
-                                    {!! Form::number('price', $product->getPrice(), ['class' => 'form-control', 'min' => '0.00', 'step' => 'any']) !!}
+                                    {!! Form::number('price', $product->getPrice(), ['class' => 'form-control', 'min' => '0.00']) !!}
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -60,7 +60,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1"><i
                                             class="fa-solid fa-table-list"></i></span>
-                                    {!! Form::number('stock', $product->getStock(), ['class' => 'form-control', 'min' => '0', 'step' => 'any']) !!}
+                                    {!! Form::number('stock', $product->getStock(), ['class' => 'form-control', 'min' => '0']) !!}
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -83,7 +83,6 @@
                                     {!! Form::number('stock_max', $product->getStockMax(), [
                                         'class' => 'form-control',
                                         'min' => '0',
-                                        'step' => 'any',
                                     ]) !!}
                                 </div>
                             </div>

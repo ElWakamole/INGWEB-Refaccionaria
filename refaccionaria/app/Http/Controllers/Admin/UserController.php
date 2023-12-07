@@ -6,6 +6,7 @@ use App\Http\Clases\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MUsers;
+use App\Models\Types;
 
 class UserController extends Controller
 {
@@ -13,6 +14,7 @@ class UserController extends Controller
     {
         $this->middleware("auth");
         $this->middleware("user.status");
+        $this->middleware("user.permissions");
         $this->middleware("isadmin");
     }
 
@@ -29,26 +31,41 @@ class UserController extends Controller
     public function getUsersEdit($id)
     {
         $user = MUsers::getUserEdit($id);
-        return view('admin.users.edit')->with('user', $user);
+        $type = Types::find($id);
+        return view('admin.users.edit')->with('user', $user)->with('type', $type);
     }
 
-    public function getUsersPermissions($id){
+    public function postUsersEdit(Request $request, $id)
+    {
+        if ($request->input('role') == '1') :
+            $permissions = [
+                'dashboard' => 'true',
+            ];
+            $permissions = json_encode($permissions);
+            $user = new Users($id, null, $request->input('role'), null, null, null, null, $permissions, null, null, $request->input('status'));
+        else:
+            $user = new Users($id, null, $request->input('role'), null, null, null, null, null, null, null, $request->input('status'));
+        endif;
+
+        if (MUsers::postUsersEdit($user)) :
+            return back()->with('message', 'El usuario fue actualizados')->with('typealert', 'success');
+        endif;
+    }
+
+    public function getUsersPermissions($id)
+    {
         $user = MUsers::getUserEdit($id);
         return view('admin.users.permissions')->with('user', $user);
     }
 
-    public function postUsersPermissions(Request $request,$id){
-        $permissions = [
-            'dashboard' => $request->input('dashboard'),
-            'products' => $request->input('products'),
-        ];
-        $permissions = json_encode($permissions);
-        
-        $user = new Users($id,null,null,null,null,null,$permissions,null,null,null);
+    public function postUsersPermissions(Request $request, $id)
+    {
+        $permissions = json_encode($request->except(['_token']));
 
-        if(MUsers::postUsersPermissions($user)):
-            return back()->with('message','Los permisos del usuario fueron actualizados')->with('typealert','success');
-        else:
+        $user = new Users($id, null, null, null, null, null, null, $permissions, null, null, null);
+
+        if (MUsers::postUsersPermissions($user)) :
+            return back()->with('message', 'Los permisos del usuario fueron actualizados')->with('typealert', 'success');
         endif;
     }
 }

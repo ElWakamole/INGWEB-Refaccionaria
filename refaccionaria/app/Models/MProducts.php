@@ -20,6 +20,7 @@ class MProducts extends Model
         $products = [];
         foreach ($Productsjson as $Product){
             $products[] = new Products($Product->id,
+            $Product->local,
             $Product->name,
             null,
             $Product->tipo_id,
@@ -36,6 +37,7 @@ class MProducts extends Model
         $Productsjson = DProducts::getProduct($id);
         foreach ($Productsjson as $Product){
             $products = new Products($Product->id,
+            $Product->local,
             $Product->name,
             null,
             $Product->tipo_id,
@@ -50,5 +52,9 @@ class MProducts extends Model
     }
     public static function postProductEdit($product){
         return DProducts::postProductEdit($product);
+    }
+
+    public static function getProductDelete($products){
+        return DProducts::getProductDelete($products);
     }
 }

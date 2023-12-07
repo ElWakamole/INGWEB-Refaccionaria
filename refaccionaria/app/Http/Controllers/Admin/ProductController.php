@@ -10,6 +10,7 @@ use App\Models\MProducts;
 use Illuminate\Support\Str;
 use App\Models\Types;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -18,6 +19,7 @@ class ProductController extends Controller
     {
         $this->middleware("auth");
         $this->middleware("user.status");
+        $this->middleware("user.permissions");
         $this->middleware("isadmin");
     }
 
@@ -29,7 +31,7 @@ class ProductController extends Controller
 
     public function getProductAdd()
     {
-        $types = Types::where('module', '0')->pluck('name', 'id');
+        $types = Types::where('module', Auth::user()->local)->pluck('name', 'id');
         return view("admin.products.add")->with("types", $types);
     }
 
@@ -46,6 +48,7 @@ class ProductController extends Controller
 
             $products = new Products(
                 null,
+                Auth::user()->local,
                 e($request->input('name')),
                 Str::slug($request->input('name')),
                 $request->input('type'),
@@ -86,11 +89,11 @@ class ProductController extends Controller
     public function getProductEdit($id)
     {
         $product = MProducts::getProduct($id);
-        $types = Types::where('module', '0')->pluck('name', 'id');
+        $types = Types::where('module', Auth::user()->local)->pluck('name', 'id');
         return view('/admin.products.edit')->with('product', $product)->with('types', $types);
     }
 
-    public function postProductEdit(Request $request,$id)
+    public function postProductEdit(Request $request, $id)
     {
         $validator = $this->Validacion($request);
 
@@ -103,6 +106,7 @@ class ProductController extends Controller
 
             $products = new Products(
                 $id,
+                Auth::user()->local,
                 e($request->input('name')),
                 Str::slug($request->input('name')),
                 $request->input('type'),
@@ -126,6 +130,28 @@ class ProductController extends Controller
                 endif;
                 return redirect('/admin/products')->with('message', 'Producto actualizado exitosamente')->with('typealert', 'success');
             endif;
+        endif;
+    }
+
+    public function getProductDelete($id)
+    {
+        $products = new Products(
+            $id,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
+
+        if (MProducts::getProductDelete($products)) :
+            return redirect('/admin/products')->with('message', 'Producto eliminado exitosamente')->with('typealert', 'success');
         endif;
     }
 

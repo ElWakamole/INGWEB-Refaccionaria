@@ -6,8 +6,9 @@ use App\Http\Clases\Products;
 
 class DProducts{
     public static function postAddProducts(Products $products){
-        return DB::insert("insert into products(name, slug, tipo_id, img, price, stock, stock_min, stock_max, description, created_at) values (?,?,?,?,?,?,?,?,?,?)",
-        [$products->getName(),
+        return DB::insert("insert into products(local ,name, slug, tipo_id, img, price, stock, stock_min, stock_max, description, created_at) values (?,?,?,?,?,?,?,?,?,?,?)",
+        [$products->getLocal(),
+        $products->getName(),
         $products->getSlug(),
         $products->getTipo(),
         $products->getImg(),
@@ -20,7 +21,7 @@ class DProducts{
     }
 
     public static function getProducts(){
-        return DB::select('select * from products order by id desc');
+        return DB::select('select * from products where deleted_at is null order by id desc');
     }
 
     public static function getProduct($id){
@@ -40,5 +41,9 @@ class DProducts{
         $products->getDesciption(),
         date('Y-m-d H:i:s'),
         $products->getId()]);
+    }
+
+    public static function getProductDelete($products){
+        return DB::update('update products set deleted_at = ? where id = ?',[date('Y-m-d H:i:s'),$products->getId()]);
     }
 }

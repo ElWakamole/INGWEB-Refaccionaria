@@ -20,4 +20,9 @@ class DUsers{
     public static function postUsersPermissions($user){
         return DB::update('update users set permissions = ? where id =?', [$user->getPermissions(),$user->getId()]);
     }
+
+    public static function postUsersEdit($user){
+        return DB::update('update users set role = ?, status = ?, permissions = ? where id = ?',
+        [$user->getRole(),$user->getStatus(),$user->getPermissions(),$user->getId()]);
+    }
 }

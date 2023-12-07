@@ -5,6 +5,8 @@ use App\Models\Types;
 
 class Products extends Model{
     private $id;
+
+    private $local;
     private $name;
     private $slug;
     private $tipo;
@@ -16,8 +18,9 @@ class Products extends Model{
     private $desciption;
     private $content;
 
-    public function __construct($id, $name,$slug,$tipo, $img, $price, $stock, $stock_min, $stock_max, $desciption, $content){
+    public function __construct($id, $local, $name,$slug,$tipo, $img, $price, $stock, $stock_min, $stock_max, $desciption, $content){
         $this->id = $id;
+        $this->local = $local;
         $this->name = $name;
         $this->slug = $slug;
         $this->tipo = $tipo;
@@ -32,6 +35,11 @@ class Products extends Model{
     public function getId(){
         return $this->id;
     }
+
+    public function getLocal(){
+        return $this->local;
+    }
+
     public function getName(){
         return $this->name;
     }

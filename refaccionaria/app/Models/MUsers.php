@@ -15,7 +15,7 @@ class MUsers extends Model
         $Usersjson = DUsers::getUsersStatus($status);
         $users = [];
         foreach ($Usersjson as $User){
-            $users[] = new Users($User->id,$User->role,$User->name,$User->lastnameP,$User->lastnameM,$User->email,null,$User->address,$User->phone,$User->status);
+            $users[] = new Users($User->id,$User->local,$User->role,$User->name,$User->lastnameP,$User->lastnameM,$User->email,null,$User->address,$User->phone,$User->status);
         }
         return $users;
     }
@@ -24,7 +24,7 @@ class MUsers extends Model
         $Usersjson = DUsers::getUsers();
         $users = [];
         foreach ($Usersjson as $User){
-            $users[] = new Users($User->id,$User->role,$User->name,$User->lastnameP,$User->lastnameM,$User->email,null,$User->address,$User->phone,$User->status);
+            $users[] = new Users($User->id,$User->local,$User->role,$User->name,$User->lastnameP,$User->lastnameM,$User->email,null,$User->address,$User->phone,$User->status);
         }
         return $users;
     }
@@ -32,9 +32,13 @@ class MUsers extends Model
     public static function getUserEdit($id){
         $Userjson = DUsers::getUserEdit($id);
         foreach ($Userjson as $User){
-            $users = new Users($User->id,$User->role,$User->name,$User->lastnameP,$User->lastnameM,$User->email,null,$User->address,$User->phone,$User->status);
+            $users = new Users($User->id,$User->local,$User->role,$User->name,$User->lastnameP,$User->lastnameM,$User->email,$User->permissions,$User->address,$User->phone,$User->status);
         }
         return $users;
+    }
+
+    public static function postUsersEdit($user){
+        return DUsers::postUsersEdit($user);
     }
 
     public static function postUsersPermissions($user){

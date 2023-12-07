@@ -4,7 +4,10 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">
-        <a href="{{ url('/admin/types') }}"><i class="fa-solid fa-folder"></i> Tipos</a>
+        <a href="{{ url('/admin/types/0') }}"><i class="fa-solid fa-folder"></i> Tipos</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ url('/admin/types/0') }}"><i class="fa-solid fa-folder"></i>Editar Tipo</a>
     </li>
 @endsection
 
