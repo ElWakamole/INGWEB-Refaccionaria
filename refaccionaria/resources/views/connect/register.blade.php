@@ -69,7 +69,7 @@
                         @endif
                         <script>
                             $('.alert').slideDown();
-                            setTimeot(function() {
+                            setTimeout(function() {
                                 $('.alert').slideUp();
                             }, 100);
                         </script>

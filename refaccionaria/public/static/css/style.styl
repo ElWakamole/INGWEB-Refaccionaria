@@ -1,0 +1,48 @@
+color1 = #85C1E9;
+color2 = #fdd700;
+body
+    background-color: #f9f9f9;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+
+nav
+    background-color: #fff;
+    border-bottom: 2px solid color1;
+    .navbar-brand
+        img
+            width: 180px;
+            height: 60px;
+    .navbar-nav
+        li.nav-item
+            a.nav-link
+                border: 1px solid #ff;
+                border-radius: 4px;
+                color: #000;
+                font-size: 0.9em;
+                font-weight: bold;
+                margin-right: 4px;
+                padding: 5px 16px !important;
+                &:hover
+                    color: color1;
+            a.btn
+                border: 1px solid color1;
+                //background-color: color1;
+                //color: #fff;
+                &:hover
+                    border: 1px solid color2;
+            .dropdown-menu
+                top: 128%;
+        li.link-acc
+            overflow: hidden;
+            a
+                display inline-block;
+                float: left;
+                margin-right: 0px !important;
+        li.link-user
+            overflow: initial;
+            a
+                border: 0px !important;
+            &:hover
+                background-color: transparent !important;
+            .dropdown-menu
+                font-size: 0.9em;

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConnectController;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Mail\Mailables\Content;
 
 /*
@@ -23,3 +25,5 @@ Route::post('/login',[ConnectController::class, 'postLogin'])->name('login');
 Route::get('/register',[ConnectController::class, 'getRegister'])->name('register');
 Route::post('/register',[ConnectController::class,'postRegister'])->name('register');
 Route::get('/logout',[ConnectController::class, 'getLogout'])->name('logout');
+
+Route::get('/account',[UserController::class,'getAccount'])->name('account');

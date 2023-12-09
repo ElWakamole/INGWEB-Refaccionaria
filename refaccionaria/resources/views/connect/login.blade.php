@@ -40,9 +40,9 @@
                         @endif
                         <script>
                             $('.alert').slideDown();
-                            setTimeot(function() {
+                            setTimeout(function() {
                                 $('.alert').slideUp();
-                            }, 10000);
+                            }, 100);
                         </script>
                     </div>
                 </div>
